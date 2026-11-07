@@ -36,7 +36,7 @@ def developer_count (data_list):
 def main():
     print("---- EJERCICIOS EXTRA DE ARCHIVOS CSV - 4 ----")
     file_games_data = read_csv_file('videogames_data.csv')
-    if file_games_data != None:
+    if file_games_data is not None:
         developer_count(file_games_data)
 
 if __name__ == '__main__':
