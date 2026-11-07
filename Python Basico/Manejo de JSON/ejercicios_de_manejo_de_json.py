@@ -69,7 +69,7 @@ def main():
     print("Agregar un Pokemon \n")
     path = 'pokemon.json'
     pokemon_data_from_file = pokemon_data(path)
-    if pokemon_data_from_file != None:
+    if pokemon_data_from_file is not None:
         new_pokemon_data(path, pokemon_data_from_file)
 
 if __name__ == '__main__':
