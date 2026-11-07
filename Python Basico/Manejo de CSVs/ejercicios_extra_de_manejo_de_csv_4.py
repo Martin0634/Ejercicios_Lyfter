@@ -17,10 +17,7 @@ def developer_count (data_list):
         while input_flag:
             try:
                 user_option = input("Escriba un desarrollador: ")
-                if len(user_option) < 4 or user_option.isdigit():
-                    raise ValueError ("Nombre invalido. Escriba un nombre de desarrollador valido: ")
-                else:
-                    input_flag = False
+                input_flag = False
             except ValueError as err:
                 print(err)
         result_data = []
