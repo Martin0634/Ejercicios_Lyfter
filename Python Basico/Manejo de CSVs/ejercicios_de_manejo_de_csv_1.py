@@ -8,7 +8,7 @@ def write_csv_file(path, data, headers):
             writer.writeheader()
             writer.writerows(data)
             print("Archivo creado.")
-    except:
+    except FileExistsError as err:
         with open(path, 'a', encoding='utf-8', newline="") as file:
             headers = data[0].keys()
             writer = csv.DictWriter(file, fieldnames=headers)
@@ -42,6 +42,7 @@ def user_input(headers):
 
 def main():
     headers = ['Nombre', 'Genero', 'Desarrollador', 'Clasificacion ESRB']
+    print("---- EJERCICIOS DE MANEJO DE ARCHIVOS CSV - 1 ----")
     user_input(headers)
 
 if __name__ == '__main__':
