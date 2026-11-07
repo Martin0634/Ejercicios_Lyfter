@@ -1,5 +1,0 @@
-print(1+1)
-print(90-430)
-print(4*5)
-print(50/10)
-print("La suma de 1 + 1 es:", 1 + 1)
