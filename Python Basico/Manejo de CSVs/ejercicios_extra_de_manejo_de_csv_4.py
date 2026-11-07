@@ -17,10 +17,7 @@ def developer_count (data_list):
         while input_flag:
             try:
                 user_option = input("Escriba un desarrollador: ")
-                if len(user_option) < 4 or user_option.isdigit():
-                    raise ValueError ("Nombre invalido. Escriba un nombre de desarrollador valido: ")
-                else:
-                    input_flag = False
+                input_flag = False
             except ValueError as err:
                 print(err)
         result_data = []
@@ -39,7 +36,7 @@ def developer_count (data_list):
 def main():
     print("---- EJERCICIOS EXTRA DE ARCHIVOS CSV - 4 ----")
     file_games_data = read_csv_file('videogames_data.csv')
-    if file_games_data != None:
+    if file_games_data is not None:
         developer_count(file_games_data)
 
 if __name__ == '__main__':
