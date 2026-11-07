@@ -1,0 +1,10 @@
+HISTORIAL DE CAMBIOS - DE USUARIO A DESARROLLADOR
+
+EJERCICIOS DE MANEJO DE ARCHIVOS CSV - 1
+1. Se corrigio el 'except' completamente abierto por 'except FileExistsError as err'
+2. Se agrego la linea de impresion de informacion del ejercicio al correr el programa
+
+EJERCICIOS DE MANEJO DE ARCHIVOS CSV - 2
+1. Se corrigio el 'except' completamente abierto por 'except FileExistsError as err'
+2. Se organizo el programa en funciones, una para pedir los datos al usuario, otra para escribir en el archivo CSV y una que controle el flujo general. Con esto se evitaron las variables globales y se paso como parametro la lista de HEADERS.
+3. Se implemento de mejor manera el mensaje de despedida al seleccionar la opcion de 'Salir' del menu.
