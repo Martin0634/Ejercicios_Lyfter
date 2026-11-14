@@ -28,7 +28,7 @@ def user_input(headers):
             if user_option > 2 or user_option < 1:
                 raise ValueError("Opcion no valida. Elija una opcion del menu:")
         except ValueError as err:
-            print("Invalido. Elija una opcion (y/n). ")
+            print("Invalido. Elija una opcion. ")
             user_option = 0
     
         if user_option == 1:
