@@ -8,3 +8,12 @@ EJERCICIOS DE MANEJO DE ARCHIVOS CSV - 2
 1. Se corrigio el 'except' completamente abierto por 'except FileExistsError as err'
 2. Se organizo el programa en funciones, una para pedir los datos al usuario, otra para escribir en el archivo CSV y una que controle el flujo general. Con esto se evitaron las variables globales y se paso como parametro la lista de HEADERS.
 3. Se implemento de mejor manera el mensaje de despedida al seleccionar la opcion de 'Salir' del menu.
+
+PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES
+1. Se corrigieron los procesos de Importacion y Exportacion de datos del archivo CSV
+2. Se agregaron al menu estas dos opciones
+3. El manejo de la lista principal de datos se maneja de forma independiente durante la ejecucion del programa
+4. Se incluye el promedio general de todos los estudiantes antes de mostrar el promedio por estudiante
+5. failed_flag se reinicia para cada estudiante en el ciclo de comprobacion de estudiantes reprobados
+6. Al mostrar las materias reprobadas, se recorre la lista en base a los encabezados 
+7. Se implemento el control de estudiantes duplicados en una misma carga
