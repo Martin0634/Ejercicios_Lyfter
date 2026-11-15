@@ -1,5 +1,5 @@
-from actions import add_student_info, show_all_students_data, show_all_students_grade_avg, delete_student, select_failed_students, enter_hold
-from data import read_student_data_file, data_list_validation, write_data_list_to_csv
+from actions import add_student_info, show_all_students_data, show_all_students_grade_avg, delete_student, select_failed_students, enter_hold, data_list_validation
+from data import read_student_data_file, write_data_list_to_csv
 
 def main_menu():
     #data list while the program runs
@@ -31,9 +31,20 @@ def main_menu():
                 print("Invalid option.")
         
         if user_input_option == '0':
-            if flag_export_data:
-                print("You need to export data file first. Use menu option 8")
-                enter_hold()
+            if students_data_list:
+                if flag_export_data:
+                    flag_confirmation = True
+                    while flag_confirmation:
+                        user_confirmation = input("There are changes in data not exported yet. Do you wish to continue? (y/n): ")
+                        if user_confirmation != 'y' and user_confirmation != 'n' and user_confirmation != 'Y' and user_confirmation != 'N':
+                            print("Chose only Yes or No (y/n)")
+                        if user_confirmation == 'n' or user_confirmation == 'N':
+                            flag_confirmation = False
+                        else:
+                            print("\nThank you for using Martin Zeta Systems.")
+                            print("Have a nice day.")
+                            flag = False
+                            flag_confirmation = False
             else:
                 print("\nThank you for using Martin Zeta Systems.")
                 print("Have a nice day.")
@@ -49,46 +60,29 @@ def main_menu():
                     data_list_flag = data_list_validation(students_data_list)
         
         if user_input_option == '2':
-            if data_list_flag:
-                students_data_list = add_student_info(students_data_list)
-                flag_export_data = True
-            else:
-                print("No data imported. Import data from file first")
+            students_data_list = add_student_info(students_data_list)
+            flag_export_data = True
             
         if user_input_option == '3':
-            if not data_list_flag:
-                print("No data imported. Import data from file first")
-            else:
-                show_all_students_data(students_data_list)
+            show_all_students_data(students_data_list)
         
         if user_input_option == '4':
-            if not data_list_flag:
-                print("No data imported. Import data from file first")
-            else:
-                show_all_students_grade_avg(students_data_list, 'top3')
+            show_all_students_grade_avg(students_data_list, 'top3')
         
         if user_input_option == '5':
-            if not data_list_flag:
-                print("No data imported. Import data from file first")
-            else:
-                show_all_students_grade_avg(students_data_list, 'all')
+            show_all_students_grade_avg(students_data_list, 'all')
         
         if user_input_option == '6':
-            if not data_list_flag:
-                print("No data imported. Import data from file first")
-            else:
-                delete_student(students_data_list)
-                flag_export_data = True
+            delete_student(students_data_list)
+            flag_export_data = True
         
         if user_input_option == '7':
-            if not data_list_flag:
-                print("No data imported. Import data from file first")
-            else:
-                select_failed_students(students_data_list)
+            select_failed_students(students_data_list)
         
         if user_input_option == '8':
-            if not data_list_flag:
-                print("No data imported. Import data from file first")
+            if not students_data_list:
+                print("No data to export.")
+                enter_hold()
             else:
                 write_data_list_to_csv(students_data_list)
                 flag_export_data = False

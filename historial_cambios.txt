@@ -17,3 +17,9 @@ PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES
 5. failed_flag se reinicia para cada estudiante en el ciclo de comprobacion de estudiantes reprobados
 6. Al mostrar las materias reprobadas, se recorre la lista en base a los encabezados 
 7. Se implemento el control de estudiantes duplicados en una misma carga
+
+PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES - 2026-11-15
+1. Se corrigio el flujo de datos en memoria, pudiendo ejecutar las opciones del menu sin necesidad de importar datos desde un archivo obligatoriamente
+2. Se organizaron los modulos data.py y actions.py de manera que el modulo data.py solo contiene las funciones de lectura y escritura de archivo
+3. Se corrigio el ciclo para mostrar el promedio de estudiantes cuando existe un solo estudiante en la lista
+4. Se corrigio el ciclo para eliminar estudiantes, pudiendo eliminar el primer estudiante de la lista
