@@ -123,9 +123,9 @@ def add_student_info(data_list):
         if data_list:
             if student_exists(data_list, new_student_data[i][HEADERS[0]], new_student_data[i][HEADERS[1]]):
                 print(f"\nStudent name {new_student_data[i][HEADERS[0]]} in section {new_student_data[i][HEADERS[1]]} already registered.")
-        else:
-            new_student_data_verified.append(new_student_data[i])
-            students_data_qty += 1
+            else:
+                new_student_data_verified.append(new_student_data[i])
+                students_data_qty += 1
     
     #adding new student to Data List
     if students_data_qty > 0:

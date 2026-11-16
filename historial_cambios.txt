@@ -23,3 +23,6 @@ PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES - 2026-11-15
 2. Se organizaron los modulos data.py y actions.py de manera que el modulo data.py solo contiene las funciones de lectura y escritura de archivo
 3. Se corrigio el ciclo para mostrar el promedio de estudiantes cuando existe un solo estudiante en la lista
 4. Se corrigio el ciclo para eliminar estudiantes, pudiendo eliminar el primer estudiante de la lista
+
+PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES - 2026-11-16
+1. Se corrigio la indentacion de la sentencia append() en el archivo actions.py en la verificacion de duplicado de estudiante para agregar a new_student_data_verified[]

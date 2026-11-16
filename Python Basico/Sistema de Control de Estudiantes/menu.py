@@ -43,12 +43,12 @@ def main_menu():
                         else:
                             print("\nThank you for using Martin Zeta Systems.")
                             print("Have a nice day.")
-                            flag = False
                             flag_confirmation = False
-            else:
-                print("\nThank you for using Martin Zeta Systems.")
-                print("Have a nice day.")
-                flag = False
+                else:
+                    flag = False
+                    print("\nThank you for using Martin Zeta Systems.")
+                    print("Have a nice day.")
+                    flag = False
         
         if user_input_option == '1':
             if data_list_flag:
