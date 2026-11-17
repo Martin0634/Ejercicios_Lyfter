@@ -6,6 +6,8 @@ def main_menu():
     students_data_list = []
     #checks if data list was imported
     data_list_flag = False
+    #checks data list when no data was imported
+    unimported_data_list_flag = False
     #checks if changes were made to data list
     flag_export_data = False
     #main menu
@@ -35,7 +37,7 @@ def main_menu():
                 if flag_export_data:
                     flag_confirmation = True
                     while flag_confirmation:
-                        user_confirmation = input("There are changes in data not exported yet. Do you wish to continue? (y/n): ")
+                        user_confirmation = input("There are changes in data not exported yet. All changes will be lost. Do you wish to continue? (y/n): ")
                         if user_confirmation != 'y' and user_confirmation != 'n' and user_confirmation != 'Y' and user_confirmation != 'N':
                             print("Chose only Yes or No (y/n)")
                         if user_confirmation == 'n' or user_confirmation == 'N':
@@ -44,24 +46,41 @@ def main_menu():
                             print("\nThank you for using Martin Zeta Systems.")
                             print("Have a nice day.")
                             flag_confirmation = False
+                            flag = False
                 else:
-                    flag = False
                     print("\nThank you for using Martin Zeta Systems.")
                     print("Have a nice day.")
                     flag = False
+            else:
+                print("\nThank you for using Martin Zeta Systems.")
+                print("Have a nice day.")
+                flag = False
         
         if user_input_option == '1':
             if data_list_flag:
                 print("Data was already imported.")
                 enter_hold()
+            elif unimported_data_list_flag and students_data_list is None:
+                flag_data = True
+                while flag_data:
+                    user_confirmation = input("There is data in data list. If you continue, data list will be lost. Continue? (y/n): ")
+                    if user_confirmation != 'y' and user_confirmation != 'n' and user_confirmation != 'Y' and user_confirmation != 'N':
+                        print("Chose only Yes or No (y/n)")
+                    if user_confirmation == 'n' or user_confirmation == 'N':
+                        flag_data = False
+                    else:
+                        students_data_list = read_student_data_file()
+                        data_list_flag = data_list_validation(students_data_list)
+                        flag_data = False
             else:
                 students_data_list = read_student_data_file()
-                if students_data_list is not None:
-                    data_list_flag = data_list_validation(students_data_list)
+                data_list_flag = data_list_validation(students_data_list)
         
         if user_input_option == '2':
             students_data_list = add_student_info(students_data_list)
             flag_export_data = True
+            if not data_list_flag:
+                unimported_data_list_flag = True
             
         if user_input_option == '3':
             show_all_students_data(students_data_list)

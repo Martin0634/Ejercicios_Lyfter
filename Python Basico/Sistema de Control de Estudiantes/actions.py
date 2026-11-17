@@ -4,7 +4,7 @@ import re
 #checks if file exists but has no data
 def data_list_validation(data_list):
     if not data_list:
-        print("Data file not exported. Add students and export file.")
+        print("No data on file. Add students.")
     else:
         if len(data_list) < 2:
             print("No data on file. Add a student.")
@@ -126,6 +126,9 @@ def add_student_info(data_list):
             else:
                 new_student_data_verified.append(new_student_data[i])
                 students_data_qty += 1
+        else:
+            new_student_data_verified.append(new_student_data[i])
+            students_data_qty += 1
     
     #adding new student to Data List
     if students_data_qty > 0:

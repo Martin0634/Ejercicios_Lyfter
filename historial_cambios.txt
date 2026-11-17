@@ -26,3 +26,9 @@ PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES - 2026-11-15
 
 PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES - 2026-11-16
 1. Se corrigio la indentacion de la sentencia append() en el archivo actions.py en la verificacion de duplicado de estudiante para agregar a new_student_data_verified[]
+
+
+PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES - 2026-11-17
+1. Se corrigio el control de verificacion de estudiantes duplicados en los casos de que la lista esta vacia (como cuando no se importan datos o el archivo de datos esta vacio)
+2. Se corrigio la salida del programa con la confirmacion de salir cuando se tiene cambios sin exportar
+3. Se implemento un nuevo control en la importacion de datos desde arvhivo para no sobreescribir datos de forma automatica, se pide una confirmacion al usuario para continuar.
