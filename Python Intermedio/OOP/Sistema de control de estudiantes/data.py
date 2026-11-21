@@ -1,7 +1,7 @@
 import csv
 from actions import enter_hold
 from constants import PATH, HEADERS
-from classes import Student
+from classes import Student, RegisteredStudent
 
 #read CSV file
 #def read_student_data_file():
@@ -23,8 +23,9 @@ def read_student_data_file():
             student_data = csv.DictReader(file)
             students_data_list = []
             for i in student_data:
-                students_data_list.append(Student(i[HEADERS[0]], i[HEADERS[1]], i[HEADERS[2]], i[HEADERS[3]], i[HEADERS[4]], i[HEADERS[5]] ))
-        return students_data_list
+                new_student = RegisteredStudent(Student(i[HEADERS[0]], i[HEADERS[1]], i[HEADERS[2]], i[HEADERS[3]], i[HEADERS[4]], i[HEADERS[5]] ))
+                new_student.add_verified_student()
+        return RegisteredStudent.students_data_list
     except FileNotFoundError as err:
         print(f"File '{PATH}' not found")
         enter_hold()
@@ -45,7 +46,5 @@ def write_data_list_to_csv(data_list):
             writer.writeheader()
             writer.writerows(dict_data_list)
             print("Data exported to CSV file.")
-            enter_hold()
     except FileNotFoundError as err:
         print(f"File '{PATH}' not found.")
-        enter_hold()

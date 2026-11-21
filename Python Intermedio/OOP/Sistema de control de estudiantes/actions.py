@@ -1,5 +1,5 @@
 from constants import HEADERS
-from classes import Student
+from classes import Student, RegisteredStudent
 
 #checks if file exists but has no data
 def data_list_validation(data_list):
@@ -139,12 +139,20 @@ def add_student_info(data_list):
     return new_data_list
 
 #adds new students to data list
+#def add_new_students_to_data_list(data_list, new_students_list):
+#    if not data_list:
+#        data_list = []
+#    for i in new_students_list:
+#        data_list.append(i)
+#    return data_list
+
 def add_new_students_to_data_list(data_list, new_students_list):
     if not data_list:
         data_list = []
     for i in new_students_list:
-        data_list.append(i)
-    return data_list
+        new_verified_student = RegisteredStudent(i)
+        new_verified_student.add_verified_student()
+    return RegisteredStudent.students_data_list
 
 #checks duplicate students
 def student_exists(data_list,name,section):
@@ -203,7 +211,7 @@ def grade_avg_data(data_list, flag):
             all_student_grades += total_grades
             grade_avg_data_list.append([grade_avg, data_list[i].full_name])
             grade_avg_data_list_sorted = sorted(grade_avg_data_list, key=lambda x: x[0], reverse=True)
-        all_student_grade_avg = all_student_grades / (len(data_list)*4)
+        all_student_grade_avg = all_student_grades / (len(RegisteredStudent.students_data_list)*4)
         if flag == 0:
             print("\nSTUDENT'S AVERAGE GRADE")
             print("-----------------------\n")

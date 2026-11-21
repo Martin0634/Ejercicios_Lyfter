@@ -1,7 +1,7 @@
 from actions import add_student_info, show_all_students_data, show_all_students_grade_avg, delete_student, select_failed_students, enter_hold, data_list_validation
 from data import read_student_data_file, write_data_list_to_csv
 from constants import HEADERS
-from classes import Student
+from classes import RegisteredStudent
 
 def main_menu():
     #data list while the program runs
@@ -110,9 +110,10 @@ def main_menu():
             else:
                 write_data_list_to_csv(students_data_list)
                 flag_export_data = False
+                enter_hold()
         
         elif user_input_option == '9':
-            print(f"\nStudents registered: {Student.count_students}")
+            print(f"\nStudents registered: {len(RegisteredStudent.students_data_list)}")
             enter_hold()
         
         else:

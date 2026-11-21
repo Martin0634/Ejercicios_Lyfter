@@ -23,7 +23,7 @@ class Arm:
 class RightArm(Arm):
     def __init__(self, shoulder, bicep, elbow, wrist, right_hand):
         super().__init__(shoulder, bicep, elbow, wrist)
-        self.right_arm = right_hand
+        self.right_hand = right_hand
 
 class LeftArm(Arm):
     def __init__(self, shoulder, bicep, elbow, wrist, left_hand):
@@ -60,7 +60,7 @@ class RightLeg(Leg):
 class LeftLeg(Leg):
     def __init__(self, waist, thigh, knee, shin, ankle, left_foot):
         super().__init__(waist, thigh, knee, shin, ankle)
-        self.right_foot = left_foot
+        self.lef_foot = left_foot
 
 class Foot:
     def __init__(self, heel, sole, toe):

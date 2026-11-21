@@ -8,4 +8,12 @@ class Student:
         self.english_grade = english_grade
         self.social_grade = social_grade
         self.science_grade = science_grade
-        Student.count_students += 1
+
+class RegisteredStudent(Student):
+    students_data_list = []
+    
+    def __init__(self, student):
+        self.student = student
+    
+    def add_verified_student(self):
+        RegisteredStudent.students_data_list.append(self.student)
