@@ -204,9 +204,7 @@ def grade_avg_data(data_list, flag):
         all_student_grades = 0
         for i in range(len(data_list)):
             total_grades = 0
-            for attr, value in data_list[i].__dict__.items():
-                if attr != 'full_name' and attr != 'section':
-                    total_grades += int(value)
+            total_grades = int(data_list[i].spanish_grade) + int(data_list[i].english_grade) + int(data_list[i].social_grade) + int(data_list[i].science_grade)
             grade_avg = total_grades / 4
             all_student_grades += total_grades
             grade_avg_data_list.append([grade_avg, data_list[i].full_name])

@@ -6,12 +6,9 @@ class Head:
         self.ears = ears
 
 class Torso:
-    def __init__(self, head, chest, abdomen, right_arm, left_arm):
-        self.head = head
+    def __init__(self, chest, abdomen):
         self.chest = chest
         self.abdomen = abdomen
-        self.right_arm = right_arm
-        self.left_arm = left_arm
 
 class Arm:
     def __init__(self, shoulder, bicep, elbow, wrist):
@@ -42,7 +39,7 @@ class RightHand(Hand):
 class LeftHand(Hand):
     def __init__(self, palm, left_fingers):
         super().__init__(palm)
-        self.right_fingers = left_fingers
+        self.left_fingers = left_fingers
 
 class Leg:
     def __init__(self, waist, thigh, knee, shin, ankle):
@@ -60,7 +57,7 @@ class RightLeg(Leg):
 class LeftLeg(Leg):
     def __init__(self, waist, thigh, knee, shin, ankle, left_foot):
         super().__init__(waist, thigh, knee, shin, ankle)
-        self.lef_foot = left_foot
+        self.left_foot = left_foot
 
 class Foot:
     def __init__(self, heel, sole, toe):
@@ -110,11 +107,12 @@ normal_head = Head('Medium Eyes', 'Medium Nose', 'Medium Mouth', 'Medium ears')
 small_head = Head('Small_eyes', 'Small Nose', 'Small Mouth', 'Small Ears')
 big_head = Head('Big_eyes', 'Big Nose', 'Big Mouth', 'Big Ears')
 
-normal_torso = Torso(normal_head, 'Normal Chest', 'Normal Abs', normal_right_arm, normal_left_arm)
-small_torso = Torso(small_head, 'Small Chest', 'Small Abs', small_right_arm, small_left_arm)
-big_torso = Torso(big_head, 'Big Chest', 'Big Abs', big_right_arm, big_left_arm)
+normal_torso = Torso('Normal Chest', 'Normal Abs')
+small_torso = Torso('Small Chest', 'Small Abs')
+big_torso = Torso('Big Chest', 'Big Abs')
 
 normal_human_1 = Human(normal_head, normal_torso, normal_right_arm, normal_left_arm, normal_right_leg, normal_left_leg)
 small_human_1 = Human(small_head, small_torso, small_right_arm, small_left_arm, small_right_leg, small_left_leg)
 big_human_1 = Human(big_head, big_torso, big_right_arm, big_left_arm, big_right_leg, big_left_leg)
+
 franky_1 = Human(big_head, small_torso, normal_right_arm, big_left_arm, normal_right_leg, big_left_leg)

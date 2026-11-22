@@ -10,7 +10,7 @@ class Bus:
         print(f"{name} wants to get into the bus.")
     
     def add_passenger(self, name):
-        if len(self.passengers_on_board) == self.max_passengers:
+        if len(self.passengers_on_board) >= self.max_passengers:
             print(f"Full bus! No room for {name} in this bus!")
         else:
             self.passengers_on_board.append(name)

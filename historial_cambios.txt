@@ -32,3 +32,8 @@ PROYECTO PYTHON BASICO - SISTEMA DE CONTROL DE ESTUDIANTES - 2026-11-17
 1. Se corrigio el control de verificacion de estudiantes duplicados en los casos de que la lista esta vacia (como cuando no se importan datos o el archivo de datos esta vacio)
 2. Se corrigio la salida del programa con la confirmacion de salir cuando se tiene cambios sin exportar
 3. Se implemento un nuevo control en la importacion de datos desde arvhivo para no sobreescribir datos de forma automatica, se pide una confirmacion al usuario para continuar.
+
+EJERCICIOS DE OOP 11/22/2026
+1. Se corrigio el control de agregar un nuevo pasajero al bus
+2. Se eliminaron atributos duplicados en la clase Torso, dejando que solo la clase Human reralice las conexiones necesarias entre clases
+3. Se corrigio el recorrido de __dict__ en grade_avg_data accediendo a los datos a traves de los atributos del objeto
