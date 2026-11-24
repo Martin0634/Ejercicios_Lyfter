@@ -1,7 +1,6 @@
-from actions import add_student_info, show_all_students_data, show_all_students_grade_avg, delete_student, select_failed_students, enter_hold, data_list_validation
+from actions import add_student_info, print_students_data, show_all_students_grade_avg, delete_student, select_failed_students, enter_hold, data_list_validation
 from data import read_student_data_file, write_data_list_to_csv
-from constants import HEADERS
-from classes import RegisteredStudent
+from classes import Student
 
 def main_menu():
     #data list while the program runs
@@ -13,8 +12,7 @@ def main_menu():
     #checks if changes were made to data list
     flag_export_data = False
     #main menu
-    flag = True
-    while flag:
+    while True:
         print("\n-------------------")
         print("---- MAIN MENU ----\n")
         print("1. Import data from file")
@@ -49,15 +47,15 @@ def main_menu():
                             print("\nThank you for using Martin Zeta Systems.")
                             print("Have a nice day.")
                             flag_confirmation = False
-                            flag = False
+                            return False
                 else:
                     print("\nThank you for using Martin Zeta Systems.")
                     print("Have a nice day.")
-                    flag = False
+                    return False
             else:
                 print("\nThank you for using Martin Zeta Systems.")
                 print("Have a nice day.")
-                flag = False
+                return False
         
         elif user_input_option == '1':
             if data_list_flag:
@@ -80,40 +78,38 @@ def main_menu():
                 data_list_flag = data_list_validation(students_data_list)
         
         elif user_input_option == '2':
-            students_data_list = add_student_info(students_data_list)
-            for data in students_data_list:
-                print(f"{HEADERS[0]}: {data.full_name}")
+            Student.students_data_list = add_student_info()
             flag_export_data = True
             if not data_list_flag:
                 unimported_data_list_flag = True
             
         elif user_input_option == '3':
-            show_all_students_data(students_data_list)
+            print_students_data()
         
         elif user_input_option == '4':
-            show_all_students_grade_avg(students_data_list, 'top3')
+            show_all_students_grade_avg('top3')
         
         elif user_input_option == '5':
-            show_all_students_grade_avg(students_data_list, 'all')
+            show_all_students_grade_avg('all')
         
         elif user_input_option == '6':
-            delete_student(students_data_list)
+            delete_student()
             flag_export_data = True
         
         elif user_input_option == '7':
-            select_failed_students(students_data_list)
+            select_failed_students()
         
         elif user_input_option == '8':
             if not students_data_list:
                 print("No data to export.")
                 enter_hold()
             else:
-                write_data_list_to_csv(students_data_list)
+                write_data_list_to_csv()
                 flag_export_data = False
                 enter_hold()
         
         elif user_input_option == '9':
-            print(f"\nStudents registered: {len(RegisteredStudent.students_data_list)}")
+            print(f"\nStudents registered: {len(Student.students_data_list)}")
             enter_hold()
         
         else:
