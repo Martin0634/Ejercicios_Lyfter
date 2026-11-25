@@ -28,8 +28,7 @@ def validate_new_student_qty(students_data_qty):
 
 #user inputs name
 def get_name():
-    flag = True
-    while flag:
+    while True:
         try:
             student_name = is_valid_name(input("Full Name: "))
             if student_name == 0:
@@ -37,15 +36,13 @@ def get_name():
             elif student_name == 1:
                 raise ValueError("Full name can not contain numbers.")
             else:
-                flag = False
-            return student_name
+                return student_name
         except ValueError as err:
             print(err)
 
 #user inputs section
 def get_section():
-    flag_section = True
-    while flag_section:
+    while True:
         try:
             student_section = input("Section: ")
             if len(student_section) != 3:
@@ -57,21 +54,18 @@ def get_section():
             elif not student_section[2].isalpha():
                 raise ValueError("Section third digit must be a letter. Ex: 10A")
             else:
-                flag_section = False
                 return student_section.upper()
         except ValueError as err:
             print(err) 
 
 #user inputs grades
 def get_grades(index):
-    flag_grades = True
-    while flag_grades:
+    while True:
         try:
             student_grade = int(input(f"{HEADERS[index]}: "))
             if student_grade > 100 or student_grade < 0:
                 raise ValueError("Grades must be a number between 0-100.")
             else:
-                flag_grades = False
                 return student_grade
         except ValueError as err:
             print(err)
@@ -81,7 +75,8 @@ def receiving_student_data():
     return new_student
 
 #add new students data to data list
-def add_student_info(data_list):
+def add_student_info():
+    data_list = Student.students_data_list
     #asking a number of students to add
     flag = True
     while flag:
@@ -143,8 +138,8 @@ def add_new_students_to_data_list(data_list, new_students_list):
     if not data_list:
         data_list = []
     for i in new_students_list:
-        data_list.append(i)
-    return data_list
+        Student.add_verified_student(i)
+    return Student.students_data_list
 
 #checks duplicate students
 def student_exists(data_list,name,section):
@@ -164,20 +159,26 @@ def show_all_students_data(data_list):
         enter_hold()
 
 #print students data
-def print_students_data(data_list):
-    print("LIST OF ALL STUDENTS")
-    print("--------------------\n\n")
-    for i in range(len(data_list)):
-        print(f"Student {i+1}:\n")
-        index = -1
-        for value in data_list[i].__dict__.values():
+def print_students_data():
+    if not Student.students_data_list:
+        print("No data to print.")
+        enter_hold()
+    else:
+        print("LIST OF ALL STUDENTS")
+        print("--------------------\n")
+        students_dict = Student.to_dict()
+        index = 1
+        for student in students_dict:
+            print(f"Student {index}:")
+            for keys, values in student.items():
+                print(f"{keys}: {values}")
             index += 1
-            print (f"{HEADERS[index]}: {value}")
-        print("\n")
-    enter_hold()
+            print("\n")
+        enter_hold()
 
 #print students average grades
-def show_all_students_grade_avg(data_list, flag):
+def show_all_students_grade_avg(flag):
+    data_list = Student.students_data_list
     if data_list:
         #print top-3 students average grades
         if flag == 'top3':
@@ -196,14 +197,12 @@ def grade_avg_data(data_list, flag):
         all_student_grades = 0
         for i in range(len(data_list)):
             total_grades = 0
-            for attr, value in data_list[i].__dict__.items():
-                if attr != 'full_name' and attr != 'section':
-                    total_grades += int(value)
+            total_grades = int(data_list[i].spanish_grade) + int(data_list[i].english_grade) + int(data_list[i].social_grade) + int(data_list[i].science_grade)
             grade_avg = total_grades / 4
             all_student_grades += total_grades
             grade_avg_data_list.append([grade_avg, data_list[i].full_name])
             grade_avg_data_list_sorted = sorted(grade_avg_data_list, key=lambda x: x[0], reverse=True)
-        all_student_grade_avg = all_student_grades / (len(data_list)*4)
+        all_student_grade_avg = all_student_grades / (len(Student.students_data_list)*4)
         if flag == 0:
             print("\nSTUDENT'S AVERAGE GRADE")
             print("-----------------------\n")
@@ -257,7 +256,8 @@ def is_valid_section(section):
         return 4
 
 #removes student data from data list
-def delete_student(data_list):
+def delete_student():
+    data_list = Student.students_data_list
     if data_list:
         print("Enter student's name and section to delete.")
         delete_student_name = get_name()
@@ -300,22 +300,19 @@ def delete_student_data(data_list,name,section):
     enter_hold()
 
 #selects failed students
-def select_failed_students(data_list):
+def select_failed_students():
+    data_list = Student.students_data_list
     if data_list:
         failed_students_list = []
-        for i in range(len(data_list)):
-            failed_flag = False
-            for attr, values in data_list[i].__dict__.items():
-                if attr != 'full_name' and attr != 'section':
-                    if int(values) < 60:
-                        failed_flag = True
-                if failed_flag:
-                    failed_students_list.append(data_list[i])
-            if len(failed_students_list) == 0:
-                print("No failed students.")
-                enter_hold()
-            else:
-                print_failed_students(failed_students_list)
+        for student in data_list:
+            if int(student.spanish_grade) < 60 or int(student.english_grade) < 60 or int(student.social_grade) < 60 or int(student.science_grade) < 60:
+                failed_students_list.append(student)
+        if len(failed_students_list) == 0:
+            print("No failed students.")
+            enter_hold()
+        else:
+            print_failed_students(failed_students_list)
+            enter_hold()    
     else:
         print("No data to print.")
         enter_hold()
@@ -324,15 +321,18 @@ def select_failed_students(data_list):
 def print_failed_students(data_list):
     print("\nFAILED STUDENTS")
     print("---------------\n")
-    index = 2
-    for i in range(len(data_list)):
-        print(f"{HEADERS[0]}: {data_list[i].full_name}")
-        print(f"{HEADERS[1]}: {data_list[i].section}")
+    for student in data_list:
+        print(f"Name: {student.full_name}")
+        print(f"Section: {student.section}")
         print("Failed subjects:")
-        for attr, values in data_list[i].__dict__.items():
-            if attr != 'full_name' and attr != 'section':
-                if int(values) < 60:
-                    print(f"{HEADERS[index]}: {values}")
+        if int(student.spanish_grade) < 60:
+            print(f"Spanish Grade: {student.spanish_grade}")
+        if int(student.english_grade) < 60:
+            print(f"English Grade: {student.english_grade}")
+        if int(student.social_grade) < 60:
+            print(f"Social Studies Grade: {student.social_grade}")
+        if int(student.science_grade) < 60:
+            print(f"Science Grade: {student.science_grade}")
         print("")
     
 #waits for the user to hit ENTER key
