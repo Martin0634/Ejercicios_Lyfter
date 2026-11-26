@@ -10,7 +10,7 @@ class BankAccount:
     
     def withdrawal(self, amount):
         if self.balance < amount:
-            print("Insufficient founds. Check your balance.")
+            print(f"Insufficient founds. Current balance is ${self.balance}.")
         else:
             self.balance -= amount
     
@@ -20,15 +20,15 @@ class BankAccount:
 class SavingsAccount(BankAccount):
     account_exists = False
     
-    def __init__(self, balance):
+    def __init__(self, balance, min_balance):
         super().__init__(balance)
-        self.min_balance = 500
+        self.min_balance = min_balance
         SavingsAccount.account_exists = True
     
     def withdrawal(self, amount):
         try:
             if (self.balance - amount) < self.min_balance:
-                raise ValueError("Insufficient founds. You have to keep a minimum balance.")
+                raise ValueError(f"Insufficient founds. You have to keep a minimum balance of ${self.min_balance}.")
             else:
                 self.balance -= amount
         except ValueError as err:
@@ -53,19 +53,17 @@ def type_menu():
         
         elif user_input == '2':
             if not SavingsAccount.account_exists:
+                print("Creating Savings Account")
+                min_balance_amount = get_valid_amount('Savings Account Minimum balance')
                 flag = True
                 while flag:
-                    try:
-                        print("Creating Savings Account")
-                        balance_amount = get_valid_amount()
-                        if balance_amount < 500:
-                            raise ValueError(f"Savings account balance must be greater than $500")
-                        else:
-                            savings_account = SavingsAccount(balance_amount)
-                            main_menu(user_input, savings_account)
-                            flag = False
-                    except ValueError as err:
-                        print(err)
+                    balance_amount = get_valid_amount()
+                    if balance_amount < min_balance_amount:
+                        print("Savings account balance can not be less than Account Minimum Balance.")
+                    else:
+                        flag = False
+                savings_account = SavingsAccount(balance_amount, min_balance_amount)
+                main_menu(user_input, savings_account)
             else:
                 print("Accessing Savings Account")
                 main_menu(user_input, savings_account)
