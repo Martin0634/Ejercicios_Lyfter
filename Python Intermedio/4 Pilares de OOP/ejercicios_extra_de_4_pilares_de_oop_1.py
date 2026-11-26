@@ -18,9 +18,8 @@ class Employee:
         else:
             self._salary = new_salary
     
-    def promote(self):
-        promotion_rate = input("Enter salary increment %: ")
-        self.salary += float(self.salary) * (float(promotion_rate) / 100)
+    def promote(self, bonus):
+        self.salary += float(self.salary) * (float(bonus) / 100)
         print(f"New salary is: {self.salary:.2f}")
         
 
@@ -97,6 +96,20 @@ def modify_salary(employee):
         new_salary = get_new_salary()
         employee.salary = new_salary
 
+def get_increment_rate(employee):
+    if not employee:
+        print("Create employee first.")
+    else:
+        while True:
+            try:
+                increment_rate = input("Enter increment %: ")
+                if float(increment_rate) < 0:
+                    raise ValueError("Increment % must be grater than zero.")
+                else:
+                    return increment_rate
+            except ValueError as err:
+                print(err)
+
 def main_menu():
     employee = ''
     while True:
@@ -116,7 +129,11 @@ def main_menu():
             modify_salary(employee)
         
         elif user_input == '3':
-            employee.promote()
+            if not employee:
+                print("Create employee first.")
+            else:
+                increment_rate = get_increment_rate(employee)
+                employee.promote(increment_rate)
         
         elif user_input == '4':
             show_employee(employee)
