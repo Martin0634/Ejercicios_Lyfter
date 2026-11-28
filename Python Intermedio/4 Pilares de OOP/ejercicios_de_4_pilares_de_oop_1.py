@@ -1,13 +1,16 @@
 class BankAccount:
-    def __init__(self):
-        self.balance = 750
+    account_exists = False
+    
+    def __init__(self, balance):
+        self.balance = balance
+        BankAccount.account_exists = True
     
     def deposit(self, amount):
         self.balance += amount
     
     def withdrawal(self, amount):
         if self.balance < amount:
-            print("Insufficient founds. Check your balance.")
+            print(f"Insufficient founds. Current balance is ${self.balance}.")
         else:
             self.balance -= amount
     
@@ -15,24 +18,24 @@ class BankAccount:
         print(f"Your current balance is ${self.balance}")
 
 class SavingsAccount(BankAccount):
-    def __init__(self):
-        super().__init__()
-        self.min_balance = 500
+    account_exists = False
+    
+    def __init__(self, balance, min_balance):
+        super().__init__(balance)
+        self.min_balance = min_balance
+        SavingsAccount.account_exists = True
     
     def withdrawal(self, amount):
         try:
             if (self.balance - amount) < self.min_balance:
-                raise ValueError("Insufficient founds. You have to keep a minimum balance.")
+                raise ValueError(f"Insufficient founds. You have to keep a minimum balance of ${self.min_balance}.")
             else:
                 self.balance -= amount
         except ValueError as err:
             print(err)
 
 def type_menu():
-    normal_account = BankAccount()
-    savings_account = SavingsAccount()
-    flag = True
-    while flag:
+    while True:
         print("----ATM MENU----")
         print("1. Normal Account")
         print("2. Savings Account")
@@ -40,21 +43,40 @@ def type_menu():
         user_input = input("\nChoose your option: ")
         
         if user_input == '1':
-            main_menu(user_input, normal_account)
+            if not BankAccount.account_exists:
+                print("Creating Normal Account")
+                normal_account = BankAccount(get_valid_amount())
+                main_menu(user_input, normal_account)
+            else:
+                print("Accessing Normal Account")
+                main_menu(user_input, normal_account)
         
         elif user_input == '2':
-            main_menu(user_input, savings_account)
+            if not SavingsAccount.account_exists:
+                print("Creating Savings Account")
+                min_balance_amount = get_valid_amount('Savings Account Minimum balance')
+                flag = True
+                while flag:
+                    balance_amount = get_valid_amount()
+                    if balance_amount < min_balance_amount:
+                        print("Savings account balance can not be less than Account Minimum Balance.")
+                    else:
+                        flag = False
+                savings_account = SavingsAccount(balance_amount, min_balance_amount)
+                main_menu(user_input, savings_account)
+            else:
+                print("Accessing Savings Account")
+                main_menu(user_input, savings_account)
         
         elif user_input == 'E' or user_input == 'e':
-            flag = False
             print("Thank you for using MartinZeta Systems.\nHave a nice day!")
+            return False
         
         else:
             print("Invalid option. Try again.")
 
 def main_menu(account_type, account):
-    flag = True
-    while flag:
+    while True:
         if account_type == '1':
             print("----NORMAL ACCOUNT MENU----")
         else:
@@ -85,13 +107,13 @@ def main_menu(account_type, account):
             account.show_balance()
         
         elif user_input == 'E' or user_input == 'e':
-            flag = False
-            print("Thank you for using MartinZeta Systems.\nHave a nice day!")
+            print("Going back to previous menu.")
+            return False
         
         else:
             print("Invalid option. Try again.")
 
-def get_valid_amount(transaction):
+def get_valid_amount(transaction='Balance'):
     while True:
         try:
             amount = input(f"{transaction} amount: $").strip()
